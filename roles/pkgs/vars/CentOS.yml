@@ -1,0 +1,9 @@
+---
+pkgs_lists:
+  - gcc
+  - libgit2-devel
+  - libcurl-devel
+  - cmake
+  - libffi-devel
+  - python-devel
+  - libssh2-devel

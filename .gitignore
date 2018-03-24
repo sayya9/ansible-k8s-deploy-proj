@@ -1,0 +1,7 @@
+*.retry
+roles/deploy/vars/*.yml
+!roles/deploy/vars/example.yml
+roles/deploy/files/*
+!roles/deploy/files/example
+*.lab
+*.company

@@ -1,0 +1,6 @@
+global:
+  image:
+    pullPolicy: IfNotPresent
+  storageClassName: local
+nodeSelector:
+  nailgun.name/hostpath: enabled

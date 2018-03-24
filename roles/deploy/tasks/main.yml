@@ -1,0 +1,23 @@
+- name: include customer project list
+  include_vars: "{{ deploy_customer }}.yml"
+
+- name: get Tiller's server host
+  command: "kubectl get svc -n kube-system tiller-deploy -o jsonpath='{.spec.clusterIP}'"
+  register: tiller_host
+
+- name: use helm to deploy projects
+  helm:
+    host: "{{ tiller_host.stdout }}"
+    chart:
+      name: "{{ item.chart }}"
+      version: "{{ item.version }}"
+      source:
+        type: repo
+        location: "{{ deploy_location }}"
+    state: present
+    name: "{{ item.release }}"
+    namespace: "{{ item.namespace }}"
+    values: "{{ lookup('file', deploy_customer + '/' + item.release + '.yml') | from_yaml }}"
+  run_once: True
+  when: item.enabled | bool
+  with_items: "{{ deploy_proj }}"

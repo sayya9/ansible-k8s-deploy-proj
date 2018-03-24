@@ -1,0 +1,4 @@
+- name: upgrade grpcio-tools
+  pip:
+    name: grpcio-tools
+    extra_args: --upgrade

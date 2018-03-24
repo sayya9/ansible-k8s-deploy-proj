@@ -1,0 +1,4 @@
+deploy_proj:
+  - { chart: postgres, release: postgres, namespace: default, version: 10.3-alpine, enabled: True }
+  - { chart: k8s-hostpath-provisioner, release: k8s-hostpath-provisioner, namespace: default, version: 0.1.0, enabled: True }
+
