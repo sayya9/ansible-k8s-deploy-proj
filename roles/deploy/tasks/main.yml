@@ -1,6 +1,3 @@
-- name: include customer project list
-  include_vars: "{{ deploy_customer }}.yml"
-
 - name: get Tiller's server host
   command: "kubectl get svc -n kube-system tiller-deploy -o jsonpath='{.spec.clusterIP}'"
   register: tiller_host
