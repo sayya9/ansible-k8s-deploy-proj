@@ -3,15 +3,23 @@ This ansible playbook will deploy company projects via helm of Kubernetes. OS pl
 
 INSTALL
 =======
+
+To deploy projects:
+
 ```
 git clone https://github.com/sayya9/ansible-k8s-deploy.git
 
-cd ansible-k8s-deploy && ansible-playbook playbook.yml
+cd ansible-k8s-deploy && ansible-playbook install.yml
 ```
 
 Role Variables
 =======
-Available variables are listed below, along with default values (see deploy/defaults/main.yml):
+Available variables are listed below. (see inventory/host_vars/example, and example file is your server):
+
+deploy_customer variable is your customer name. Kubernetes helm deploy projects in example namespace and load helm values.yaml files in deploy/files/example.
+
+```deploy_customer: example```
+
 
 This is your helm repo URL
 
@@ -19,11 +27,7 @@ This is your helm repo URL
 deploy_location: https://example/helm-repository
 ```
 
-Ansible playbook will load variable from deploy/vars/```example```.yml
-
-```deploy_customer: example```
-
-The file [deploy/vars/example.yml](https://github.com/sayya9/ansible-k8s-deploy/blob/master/roles/deploy/vars/example.yml) content put your helm project list.
+deploy_proj variable put your helm project list.
 
 ```
 deploy_proj:
