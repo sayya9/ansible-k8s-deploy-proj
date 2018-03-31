@@ -1,4 +1,4 @@
-# ansible-k8s-deploy
+# ansible-k8s-deploy-proj
 This ansible playbook will deploy company projects via helm of Kubernetes. OS platform can support CentOS 7 and Ubuntu 16.04.
 
 INSTALL
