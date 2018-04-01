@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: deploy01
   roles:
     - { role: geerlingguy.repo-epel, when: ansible_distribution == 'CentOS', become: True }
     - { role: pkgs, become: True }

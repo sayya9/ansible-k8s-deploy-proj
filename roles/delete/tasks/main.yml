@@ -1,0 +1,13 @@
+- name: get Tiller's server host
+  command: "kubectl get svc -n kube-system tiller-deploy -o jsonpath='{.spec.clusterIP}'"
+  register: tiller_host
+
+- name: delete helm release projects
+  helm:
+    host: "{{ tiller_host.stdout }}"
+    state: absent
+    name: "{{ item.release }}"
+  with_items: "{{ deploy_proj }}"
+
+#- debug: "msg={{ item.chart }}"
+#  with_items: "{{ deploy_proj }}"

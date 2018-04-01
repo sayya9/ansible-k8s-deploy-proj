@@ -1,3 +1,4 @@
+---
 - name: get Tiller's server host
   command: "kubectl get svc -n kube-system tiller-deploy -o jsonpath='{.spec.clusterIP}'"
   register: tiller_host

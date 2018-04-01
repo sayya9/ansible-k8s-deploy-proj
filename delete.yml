@@ -1,0 +1,4 @@
+---
+- hosts: deploy01
+  roles:
+    - { role: delete }
