@@ -1,4 +1,4 @@
 ---
-- hosts: deploy01
+- hosts: all
   roles:
     - { role: delete }
