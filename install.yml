@@ -1,8 +1,8 @@
 ---
 - hosts: all
   roles:
-    - { role: geerlingguy.repo-epel, when: ansible_distribution == 'CentOS', become: True }
+    - { role: geerlingguy.repo-epel, when: ansible_distribution == 'CentOS' }
     - { role: pkgs, become: True }
     - { role: geerlingguy.pip, pip_install_packages: ['pyyaml', { name: 'pygit2', version: '0.24.2' }, 'gevent', 'pyhelm'], become: True }
     - { role: grpcio-tools, become: True }
-    - { role: deploy }
+    - { role: deploy, become: True }
