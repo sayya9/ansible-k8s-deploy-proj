@@ -1,4 +1,20 @@
 ---
+- name: create namespace
+  command: "kubectl create namespace {{ deploy_customer }}"
+  ignore_errors: True
+
+- name: create secret
+  command: "kubectl create secret -n {{ deploy_customer }} docker-registry {{ docker_reg.name }} --docker-server={{ docker_reg.server }} --docker-username={{ docker_reg.account }} --docker-password={{ docker_reg.password }} --docker-email={{ docker_reg.mail }}"
+  register: result
+  changed_when: "'created' in result.stdout"
+  failed_when: "result.rc != 0 and 'already exists' not in result.stderr"
+
+- name: patch serviceaccount
+  command: kubectl patch sa default -n "{{ deploy_customer }}" -p '{"imagePullSecrets":[{"name":"{{ docker_reg.name }}"}]}'
+  register: result
+  changed_when: "'created' in result.stdout"
+  failed_when: "result.rc != 0 and 'already exists' not in result.stderr"
+
 - name: get Tiller's server host
   command: "kubectl get svc -n kube-system tiller-deploy -o jsonpath='{.spec.clusterIP}'"
   register: tiller_host
