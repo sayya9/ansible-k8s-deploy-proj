@@ -8,8 +8,7 @@ To deploy projects:
 
 ```
 git clone https://github.com/sayya9/ansible-k8s-deploy.git
-
-cd ansible-k8s-deploy && ansible-playbook -i inventory/deploy01 install.yml
+cd ansible-k8s-deploy && ansible-playbook -i inventory/deploy01 -b install.yml
 ```
 
 Role Variables
