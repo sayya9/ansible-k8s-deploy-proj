@@ -12,8 +12,13 @@
 - name: patch serviceaccount
   command: kubectl patch sa default -n "{{ deploy_customer }}" -p '{"imagePullSecrets":[{"name":"{{ docker_reg.name }}"}]}'
   register: result
-  changed_when: "'created' in result.stdout"
-  failed_when: "result.rc != 0 and 'already exists' not in result.stderr"
+  changed_when: "result.rc == 0 and 'not' not in result.stdout"
+  failed_when: "result.rc != 0 and 'patch' not in result.stdout"
+
+- name: label and annotate
+  include_tasks: node-label.yml
+  with_items: "{{ deploy_proj }}"
+  when: item.chart == 'k8s-hostpath-provisioner'
 
 - name: get Tiller's server host
   command: "kubectl get svc -n kube-system tiller-deploy -o jsonpath='{.spec.clusterIP}'"

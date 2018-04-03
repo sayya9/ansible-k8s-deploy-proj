@@ -1,0 +1,6 @@
+---
+- name: update label on node
+  command: "kubectl label --overwrite node --overwrite --all nailgun.name/hostpath=enabled"
+
+- name: update annotate on node
+  command: "kubectl annotate --overwrite node {{ ansible_hostname }} hostpath.nailgun.name/ssd=/data"
