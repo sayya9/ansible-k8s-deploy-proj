@@ -4,3 +4,6 @@
 
 - src: geerlingguy.pip
   version: 1.2.0
+
+- src: andrewrothstein.epel
+  version: v1.0.5
