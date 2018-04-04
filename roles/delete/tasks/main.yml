@@ -6,7 +6,7 @@
   helm:
     host: "{{ tiller_host.stdout }}"
     state: purged
-    name: "{{ item.release }}"
+    name: "{{ item.release }}-{{ deploy_customer }}"
   with_items: "{{ deploy_proj }}"
   ignore_errors: True
 

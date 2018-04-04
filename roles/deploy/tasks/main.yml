@@ -1,4 +1,6 @@
 ---
+- include_vars: secrets.yml
+
 - name: create namespace
   command: "kubectl create namespace {{ deploy_customer }}"
   ignore_errors: True
@@ -34,7 +36,7 @@
         type: repo
         location: "{{ deploy_location }}"
     state: present
-    name: "{{ item.release }}"
+    name: "{{ item.release }}-{{ deploy_customer }}"
     namespace: "{{ item.namespace }}"
     values: "{{ lookup('file', deploy_customer + '/' + item.release + '.yml') | from_yaml }}"
   run_once: True

@@ -2,9 +2,6 @@
 roles/deploy/files/*
 !roles/deploy/files/example
 inventory/*
-!inventory/host_vars
 !inventory/example
-inventory/host_vars/*
-!inventory/host_vars/example
 *.lab
 *.company
