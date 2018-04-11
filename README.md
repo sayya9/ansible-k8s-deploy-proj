@@ -53,7 +53,7 @@ deploy_proj:
   - { chart: k8s-hostpath-provisioner, release: k8s-hostpath-provisioner, namespace: default, version: 0.1.0, enabled: True }
 ```
 
-The directory [deploy/files/example](https://github.com/sayya9/ansible-k8s-deploy-proj/tree/master/roles/deploy/files/example) content put each helm project values.yml. Tips: example is your namespace(deploy_customer variable)
+The directory [roles/deploy/files/example](https://github.com/sayya9/ansible-k8s-deploy-proj/tree/master/roles/deploy/files/example) content put each helm project values.yml. Tips: example is your namespace(deploy_customer variable)
 
 For example postgres:
 ```
