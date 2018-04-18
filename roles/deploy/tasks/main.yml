@@ -20,7 +20,7 @@
 - name: label and annotate
   include_tasks: node-label.yml
   with_items: "{{ deploy_proj }}"
-  when: item.chart == 'k8s-hostpath-provisioner'
+  when: item.chart == 'k8s-hostpath-provisioner.nailgun'
 
 - name: get Tiller's server host
   command: "kubectl get svc -n kube-system tiller-deploy -o jsonpath='{.spec.clusterIP}'"
