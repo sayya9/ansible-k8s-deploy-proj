@@ -1,7 +1,6 @@
 ---
 pkgs_lists:
   - gcc
-  - libgit2-dev
   - libcurl*-gnutls
   - cmake
   - libffi-dev

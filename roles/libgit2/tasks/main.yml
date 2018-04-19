@@ -1,0 +1,25 @@
+---
+- name: download libgit2
+  unarchive:
+    src: "{{ libgit2_url }}"
+    dest: /tmp
+    copy: no
+
+- name: install libgit2
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/libgit2-{{ libgit2_version }}"
+  with_items:
+    - cmake .
+    - make
+    - make install
+
+- name: configure dynamic linker run time bindings
+  copy:
+    src: local.conf
+    dest: /etc/ld.so.conf.d/local.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - run ldconfig

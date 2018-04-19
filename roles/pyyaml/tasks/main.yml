@@ -1,0 +1,4 @@
+- name: upgrade pyyaml
+  pip:
+    name: pyyaml
+    extra_args: -U -I

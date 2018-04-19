@@ -1,8 +1,9 @@
 ---
 - hosts: all
   roles:
-    - { role: andrewrothstein.epel }
-    - { role: pkgs }
-    - { role: geerlingguy.pip, pip_install_packages: ['pyyaml', { name: 'pygit2', version: '0.24.2' }, 'gevent', 'pyhelm'] }
-    - { role: grpcio-tools }
-    - { role: deploy }
+    - { role: andrewrothstein.epel, tags: epel }
+    - { role: pkgs, tags: pkg }
+    - { role: pyyaml, tags: pyyaml }
+    - { role: libgit2, tags: libgit2 }
+    - { role: geerlingguy.pip, pip_install_packages: [{ name: pygit2, version: 0.27.0 }, { name: pyhelm, version: 0.0.1.dev39 }], tags: pip }
+    - { role: deploy, tags: deploy }
