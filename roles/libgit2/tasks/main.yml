@@ -3,11 +3,6 @@
   lineinfile:
     path: /etc/ld.so.conf
     line: /usr/local/lib
-  register: result
-
-- name: ldconfig
-  command: ldconfig
-  when: result.changed
 
 - name: download libgit2
   unarchive:
@@ -23,3 +18,6 @@
     - cmake .
     - make
     - make install
+
+- name: ldconfig
+  command: ldconfig
