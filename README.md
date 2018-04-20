@@ -18,7 +18,15 @@ To modify:
 inventory/your_server/*
 ```
 
-To deploy:
+### For external installation
+
+To install pygit2
+
+```
+ansible-playbook -i inventory/your_server/inventory -b pygit2.yml
+```
+
+To deploy projects:
 
 ```
 ansible-playbook -i inventory/your_server/inventory -b --ask-vault-pass install.yml
