@@ -6,9 +6,9 @@
   helm:
     host: "{{ tiller_host.stdout }}"
     state: purged
-    name: "{{ item.release }}-{{ deploy_customer }}"
-  with_items: "{{ deploy_proj }}"
+    name: "{{ item.release }}-{{ customer }}"
+  with_items: "{{ projects }}"
   ignore_errors: True
 
 - name: delete namespace
-  shell: kubectl delete namespace {{ deploy_customer }}
+  shell: kubectl delete namespace {{ customer }}

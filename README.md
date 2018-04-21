@@ -42,26 +42,40 @@ Role Variables
 =======
 Available variables are listed below. (see inventory/example/group_vars/all.yml, example is your server name):
 
-deploy_customer variable is your customer name. Kubernetes helm deploy projects in example namespace and load helm values.yaml files in roles/deploy/files/example.
+chart_repo_name variable is helm chart repo name, it is used by the command blew.
 
-```deploy_customer: example```
+chart_repo_name variable
+
+```
+chart_repo_name: example
+```
+
+command
+
+```
+helm repo add example https://example/helm-repository
+```
+
+customer variable is your customer name. Kubernetes helm deploy projects in example namespace and load helm values.yaml files in roles/deploy/files/example.
+
+```customer: example```
 
 
 This is your helm repo URL
 
 ```
-deploy_location: https://example/helm-repository
+location: https://example/helm-repository
 ```
 
-deploy_proj variable put your helm project list.
+projects variable put your helm project list.
 
 ```
-deploy_proj:
+projects:
   - { chart: postgres, release: postgres, namespace: default, version: 10.3-alpine, enabled: True }
   - { chart: k8s-hostpath-provisioner, release: k8s-hostpath-provisioner, namespace: default, version: 0.1.0, enabled: True }
 ```
 
-The directory [roles/deploy/files/example](https://github.com/sayya9/ansible-k8s-deploy-proj/tree/master/roles/deploy/files/example) content put each helm project values.yml. Tips: example is your namespace(deploy_customer variable)
+The directory [roles/deploy/files/example](https://github.com/sayya9/ansible-k8s-deploy-proj/tree/master/roles/deploy/files/example) content put each helm project values.yml. Tips: example is your namespace(customer variable). In other words, Kubernetes will create the name example namespace.
 
 For example postgres:
 ```

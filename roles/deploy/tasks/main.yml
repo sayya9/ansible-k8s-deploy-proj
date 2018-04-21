@@ -2,24 +2,24 @@
 - include_vars: secrets.yml
 
 - name: create namespace
-  command: "kubectl create namespace {{ deploy_customer }}"
+  command: "kubectl create namespace {{ customer }}"
   ignore_errors: True
 
 - name: create secret
-  command: "kubectl create secret -n {{ deploy_customer }} docker-registry {{ docker_reg.name }} --docker-server={{ docker_reg.server }} --docker-username={{ docker_reg.account }} --docker-password={{ docker_reg.password }} --docker-email={{ docker_reg.mail }}"
+  command: "kubectl create secret -n {{ customer }} docker-registry {{ docker_reg.name }} --docker-server={{ docker_reg.server }} --docker-username={{ docker_reg.account }} --docker-password={{ docker_reg.password }} --docker-email={{ docker_reg.mail }}"
   register: result
   changed_when: "'created' in result.stdout"
   failed_when: "result.rc != 0 and 'already exists' not in result.stderr"
 
 - name: patch serviceaccount
-  command: kubectl patch sa default -n "{{ deploy_customer }}" -p '{"imagePullSecrets":[{"name":"{{ docker_reg.name }}"}]}'
+  command: kubectl patch sa default -n "{{ customer }}" -p '{"imagePullSecrets":[{"name":"{{ docker_reg.name }}"}]}'
   register: result
   changed_when: "result.rc == 0 and 'not' not in result.stdout"
   failed_when: "result.rc != 0 and 'patch' not in result.stdout"
 
 - name: label and annotate
   include_tasks: node-label.yml
-  with_items: "{{ deploy_proj }}"
+  with_items: "{{ projects }}"
   when: item.chart == 'k8s-hostpath-provisioner.nailgun'
 
 - name: get Tiller's server host
@@ -34,11 +34,11 @@
       version: "{{ item.version }}"
       source:
         type: repo
-        location: "{{ deploy_location }}"
+        location: "{{ location }}"
     state: present
-    name: "{{ item.release }}-{{ deploy_customer }}"
+    name: "{{ item.release }}-{{ customer }}"
     namespace: "{{ item.namespace }}"
-    values: "{{ lookup('file', deploy_customer + '/' + item.release + '.yml') | from_yaml }}"
+    values: "{{ lookup('file', customer + '/' + item.release + '.yml') | from_yaml }}"
   run_once: True
   when: item.enabled | bool
-  with_items: "{{ deploy_proj }}"
+  with_items: "{{ projects }}"

@@ -1,5 +1,6 @@
-deploy_customer: example
-deploy_location: https://your_helm_repo
-deploy_proj:
+chart_repo_name: example
+customer: example
+location: https://your_helm_repo
+projects:
   - { chart: postgres, release: postgres, namespace: default, version: 10.3-alpine, enabled: yes }
   - { chart: k8s-hostpath-provisioner, release: k8s-hostpath-provisioner, namespace: default, version: 0.1.0, enabled: yes }

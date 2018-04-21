@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - { role: helm, tags: helm }
+    - { role: get_lists, tags: get_lists }
+    - { role: pull_images, tags: pull_images }

@@ -1,0 +1,24 @@
+---
+- name: initialize an empty list
+  set_fact:
+    images: []
+
+- name: helm dry-run
+  command: helm install --dry-run --debug --version {{ item.version }} --devel {{     chart_repo_name }}/{{ item.chart }}
+  with_items: "{{ projects }}"
+  register: result
+
+
+- name: append image list
+  set_fact:
+    images: "{{ images }} + {{ item.stdout_lines | select('match','.*image: .*') | list | map('regex_replace', '(.*image: )') | list }}"
+  with_items: "{{ result.results }}"
+
+- name: remove quotation marks
+  set_fact:
+    images: "{{ images | map('regex_replace', '\"') | list }}"
+  with_items: "{{ images }}"
+
+- name: deduplicate image list
+  set_fact:
+    images: "{{ images | unique }}"
