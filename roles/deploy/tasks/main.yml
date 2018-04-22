@@ -38,7 +38,7 @@
     state: present
     name: "{{ item.release }}-{{ customer }}"
     namespace: "{{ item.namespace }}"
-    values: "{{ lookup('file', customer + '/' + item.release + '.yml') | from_yaml }}"
+    values: "{{ lookup('file', customer + '/' + item.chart + '.yml') | from_yaml }}"
   run_once: True
   when: item.enabled | bool
   with_items: "{{ projects }}"
