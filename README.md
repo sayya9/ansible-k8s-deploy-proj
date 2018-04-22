@@ -4,7 +4,7 @@ This ansible playbook will deploy company projects via helm of Kubernetes. OS pl
 INSTALL
 =======
 
-To clone:
+Clone this repo:
 
 ```
 git clone https://github.com/sayya9/ansible-k8s-deploy.git
@@ -18,21 +18,35 @@ To modify:
 inventory/your_server/*
 ```
 
-### For external installation
+### For external network environment installation
 
-To install pygit2
+Install pygit2
 
 ```
 ansible-playbook -i inventory/your_server/inventory -b pygit2.yml
 ```
 
-To deploy projects:
+Deploy projects:
 
 ```
-ansible-playbook -i inventory/your_server/inventory -b --ask-vault-pass install.yml
+ansible-playbook -i inventory/your_server/inventory -b --ask-vault-pass deploy.yml
 ```
 
-To delete projects:
+### For internal network environment installation
+
+Prepare images
+
+```
+ansible-playbook -i inventory/your_server/inventory prepare.yml
+```
+
+Copy to customer server
+
+```
+scp -r . remote_server:~
+```
+
+Delete projects:
 
 ```
 ansible-playbook -i inventory/your_server/inventory -b delete.yml

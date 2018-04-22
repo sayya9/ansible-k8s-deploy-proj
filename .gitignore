@@ -3,5 +3,4 @@ roles/deploy/files/*
 !roles/deploy/files/example
 inventory/*
 !inventory/example
-*.lab
-*.company
+*.tar
