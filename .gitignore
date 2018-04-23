@@ -4,3 +4,4 @@ roles/deploy/files/*
 inventory/*
 !inventory/example
 *.tar
+*.tgz

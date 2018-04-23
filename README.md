@@ -40,13 +40,15 @@ ansible-playbook -i inventory/your_server/inventory -b upgrade.yml
 
 ### For internal network environment installation
 
-Prepare images
+Prepare images:
+
+Don't forget to put ~/.kube/config and  ~/.docker/config.json
 
 ```
 ansible-playbook -i inventory/your_server/inventory prepare.yml
 ```
 
-Copy to customer server
+Copy to customer server:
 
 ```
 scp -r . remote_server:~/ansible-k8s-deploy-proj

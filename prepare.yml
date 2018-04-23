@@ -7,7 +7,17 @@
     # Don't forget add ansible_python_interpreter=/usr/local/bin/python in inventory
     - name: install docker-py
       command: pip install docker-py
+
+    - include_role:
+        name: helm_init
+
+    - include_role:
+        name: helm_repo_up
+
   roles:
-    - { role: helm_init, tags: helm_init }
     - { role: get_lists, tags: get_lists }
     - { role: pull_images, tags: pull_images }
+    - { role: pull_helm_pkgs, tags: pull_helm_pkgs }
+
+  post_tasks:
+    - local_action: copy content={{ images }} dest=images/list.yml
