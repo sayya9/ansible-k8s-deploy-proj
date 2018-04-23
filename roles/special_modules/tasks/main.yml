@@ -1,0 +1,7 @@
+- name: upgrade modules
+  pip:
+    name: "{{ item }}"
+    extra_args: -U -I
+  with_items:
+    - requests
+    - pyyaml

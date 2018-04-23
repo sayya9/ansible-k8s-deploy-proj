@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: helm_repo_up }

@@ -4,6 +4,3 @@
 
 - name: helm add a chart repository
   command: helm repo add {{ chart_repo_name }} {{ location }}
-
-- name: helm repo update
-  command: helm repo up

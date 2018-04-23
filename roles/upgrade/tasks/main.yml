@@ -1,0 +1,4 @@
+---
+- name: upgrade projects
+  command: helm upgrade -f ~/ansible-helm/values/{{ item.chart }}.yml {{ item.release }}-{{ customer }} --version {{ item.version }} {{ chart_repo_name }}/{{ item.chart }}
+  with_items: "{{ projects }}"

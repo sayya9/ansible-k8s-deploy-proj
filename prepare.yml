@@ -1,6 +1,13 @@
 ---
-- hosts: all
+- name: prepare for internal network env setup
+  hosts: all
+  pre_tasks:
+    # For Mac OS X env
+    # See: https://github.com/ansible/ansible-modules-core/issues/4246
+    # Don't forget add ansible_python_interpreter=/usr/local/bin/python in inventory
+    - name: install docker-py
+      command: pip install docker-py
   roles:
-    - { role: helm, tags: helm }
+    - { role: helm_init, tags: helm_init }
     - { role: get_lists, tags: get_lists }
     - { role: pull_images, tags: pull_images }

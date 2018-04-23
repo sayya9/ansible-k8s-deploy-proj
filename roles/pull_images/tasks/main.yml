@@ -1,7 +1,7 @@
 ---
-# For Mac OSX env
+# For Mac OS X env
 # See: https://github.com/ansible/ansible-modules-core/issues/4246
-# Don't forget add ansible_python_interpreter=/usr/local/Cellar/python@2/2.7.14_3/bin/python in inventory
+# Don't forget add ansible_python_interpreter=/usr/local/bin/python in inventory
 - name: install docker-py
   command: pip install docker-py
 

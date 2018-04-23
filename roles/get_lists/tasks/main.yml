@@ -4,7 +4,7 @@
     images: []
 
 - name: helm dry-run
-  command: helm install --dry-run --debug --version {{ item.version }} --devel {{     chart_repo_name }}/{{ item.chart }}
+  command: helm install --dry-run --debug --version {{ item.version }} --devel {{ chart_repo_name }}/{{ item.chart }}
   with_items: "{{ projects }}"
   register: result
 
