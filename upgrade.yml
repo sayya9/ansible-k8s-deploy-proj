@@ -1,4 +1,17 @@
 ---
 - hosts: all
+  gather_facts: False
+  pre_tasks:
+    - name: include role helm_init
+      include_role:
+        name: helm_init
+
+    - name: include role helm_repo_up
+      include_role:
+        name: helm_repo_up
+
+    - name: include copy_values.yml
+      include_tasks: copy_values.yml
+
   roles:
     - { role: upgrade, tag: upgrade }

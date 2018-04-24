@@ -1,0 +1,14 @@
+---
+- set_fact:
+    remote_values_dir: /ansible/values/{{ customer }}
+
+- name: create dirs
+  file:
+    path: "{{ remote_values_dir }}"
+    state: directory
+    recurse: yes
+
+- name: copy helm value files
+  synchronize:
+    src: files/values/{{ customer }}/
+    dest: "{{ remote_values_dir }}/"

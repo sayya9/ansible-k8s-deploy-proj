@@ -1,0 +1,8 @@
+---
+- set_fact:
+    remote_tgz_dir: /ansible/.helm/repository/local
+
+- name: copy helm packages
+  synchronize:
+    src: helm_pkgs/
+    dest: "{{ remote_tgz_dir }}/"

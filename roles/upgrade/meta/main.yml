@@ -1,4 +1,0 @@
-dependencies:
-  - { role: copy_files }
-  - { role: helm_init }
-  - { role: helm_repo_up }

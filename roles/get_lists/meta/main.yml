@@ -1,3 +1,4 @@
 ---
 dependencies:
+  - { role: helm_init }
   - { role: helm_repo_up }

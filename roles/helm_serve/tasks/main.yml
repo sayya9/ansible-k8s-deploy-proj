@@ -1,0 +1,10 @@
+---
+- block:
+  - name: start a local chart repository
+    shell: helm serve --address {{ helm_serve_addr }}:{{ helm_serve_port }} {{ helm_flags }} >/dev/null 2>&1 &
+    async: 10
+    poll: 0
+  always:
+    - name: stop http server
+      shell: /bin/true
+      notify: kill

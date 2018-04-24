@@ -19,7 +19,3 @@
     force: yes
     archive_path: images/{{ item | basename }}.tar
   with_items: "{{ images }}"
-
-- name: print image list
-  debug:
-    var: images

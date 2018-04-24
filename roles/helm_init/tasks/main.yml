@@ -1,6 +1,7 @@
 ---
 - name: helm set up just a local environment
-  command: helm init -c
+  command: helm init -c {{ helm_flags }}
 
 - name: helm add a chart repository
   command: helm repo add {{ chart_repo_name }} {{ location }}
+  when: is_add_repo

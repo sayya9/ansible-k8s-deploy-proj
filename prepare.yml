@@ -1,6 +1,7 @@
 ---
 - name: prepare for internal network env setup
   hosts: all
+  gather_facts: False
   pre_tasks:
     # For Mac OS X env
     # See: https://github.com/ansible/ansible-modules-core/issues/4246
@@ -8,16 +9,11 @@
     - name: install docker-py
       command: pip install docker-py
 
-    - include_role:
-        name: helm_init
-
-    - include_role:
-        name: helm_repo_up
-
   roles:
     - { role: get_lists, tags: get_lists }
     - { role: pull_images, tags: pull_images }
     - { role: pull_helm_pkgs, tags: pull_helm_pkgs }
 
   post_tasks:
-    - local_action: copy content={{ images }} dest=images/list.yml
+    - name: generate list.yml
+      local_action: copy content={{ images }} dest=images/list.yml

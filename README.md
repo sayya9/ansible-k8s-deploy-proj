@@ -4,6 +4,8 @@ This ansible playbook will deploy company projects via helm of Kubernetes. OS pl
 INSTALL
 =======
 
+Don't forget to put ~/.kube/config and  ~/.docker/config.json
+
 Clone this repo:
 
 ```
@@ -40,18 +42,32 @@ ansible-playbook -i inventory/your_server/inventory -b upgrade.yml
 
 ### For internal network environment installation
 
-Prepare images:
+Prepare docker images and helm tgz:
 
-Don't forget to put ~/.kube/config and  ~/.docker/config.json
+This is in your ansible controller, so you should use `local`
 
 ```
-ansible-playbook -i inventory/your_server/inventory prepare.yml
+ansible-playbook -i inventory/your_server/local prepare.yml
 ```
 
 Copy to customer server:
 
 ```
 scp -r . remote_server:~/ansible-k8s-deploy-proj
+```
+
+Deploy projects:
+
+```
+ssh remote_server
+cd ansible-k8s-deploy-proj
+ansible-playbook -i inventory/your_server/local -b --ask-vault-pass local-deploy.yml
+```
+
+Upgrade projects:
+
+```
+ansible-playbook -i inventory/your_server/local -b local-upgrade.yml
 ```
 
 Delete projects:
@@ -64,7 +80,7 @@ Role Variables
 =======
 Available variables are listed below. (see inventory/example/group_vars/all.yml, example is your server name):
 
-chart_repo_name variable is helm chart repo name, it is used by the command blew.
+chart_repo_name variable is helm chart repo name, it is used by the command below.
 
 chart_repo_name variable
 
@@ -78,7 +94,7 @@ command
 helm repo add example https://example/helm-repository
 ```
 
-customer variable is your customer name. Kubernetes helm deploy projects in example namespace and load helm values.yaml files in roles/deploy/files/example.
+customer variable is your customer name. Kubernetes helm deploy projects in example namespace and load helm values.yaml files in files/values/example.
 
 ```customer: example```
 
@@ -97,7 +113,7 @@ projects:
   - { chart: k8s-hostpath-provisioner, release: k8s-hostpath-provisioner, namespace: default, version: 0.1.0, enabled: True }
 ```
 
-The directory [roles/deploy/files/example](https://github.com/sayya9/ansible-k8s-deploy-proj/tree/master/roles/deploy/files/example) content put each helm project values.yml. Tips: example is your namespace(customer variable). In other words, Kubernetes will create the name example namespace.
+The directory [files/values/example](https://github.com/sayya9/ansible-k8s-deploy-proj/tree/master/files/values/example) content put each helm project values.yml. Tips: example is your namespace(customer variable). In other words, Kubernetes will create the name example namespace.
 
 For example postgres:
 ```

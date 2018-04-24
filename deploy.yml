@@ -1,4 +1,6 @@
 ---
 - hosts: all
+  gather_facts: False
+  run_once: True
   roles:
     - { role: deploy, tags: deploy }

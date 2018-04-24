@@ -1,4 +1,7 @@
 ---
 - name: upgrade projects
-  command: helm upgrade -f ~/ansible-helm/values/{{ item.chart }}.yml {{ item.release }}-{{ customer }} --version {{ item.version }} {{ chart_repo_name }}/{{ item.chart }}
+  command:
+    helm upgrade -f {{ item.chart }}.yml {{ item.release }}-{{ customer }} {{ helm_flags }} --version {{ item.version }} {{ chart_repo_name }}/{{ item.chart }}
+  args:
+    chdir: "{{ remote_values_dir }}"
   with_items: "{{ projects }}"

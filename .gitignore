@@ -1,7 +1,8 @@
 *.retry
-roles/deploy/files/*
-!roles/deploy/files/example
+files/values/*
+!files/values/example
 inventory/*
 !inventory/example
 *.tar
 *.tgz
+list.yml

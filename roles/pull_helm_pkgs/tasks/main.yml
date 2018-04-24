@@ -1,0 +1,4 @@
+---
+- name: retrieve packages
+  command: helm fetch {{ chart_repo_name }}/{{ item.chart }} --version {{ item.version }} -d helm_pkgs
+  with_items: "{{ projects }}"

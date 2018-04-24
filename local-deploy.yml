@@ -1,0 +1,22 @@
+---
+- hosts: all
+  gather_facts: False
+  run_once: True
+  pre_tasks:
+    - name: include role load_images
+      include_role:
+        name: load_images
+
+    - name: include role helm_init
+      include_role:
+        name: helm_init
+      vars:
+        helm_flags: "--skip-refresh --home /ansible/.helm"
+        is_add_repo: False
+
+    - name: include copy_tgz.yml
+      include_tasks: copy_tgz.yml
+
+  roles:
+    - { role: helm_serve, helm_flags: "--home /ansible/.helm" }
+    - { role: deploy, location: "http://{{ helm_serve_addr }}:{{ helm_serve_port }}/charts" }
