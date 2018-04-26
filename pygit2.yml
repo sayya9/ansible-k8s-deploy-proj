@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  gather_facts: False
   roles:
     - { role: andrewrothstein.epel, tags: epel }
     - { role: pkgs, tags: pkg }
