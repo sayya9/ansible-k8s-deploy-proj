@@ -1,7 +1,7 @@
 ---
 - name: set images list
   set_fact:
-    images: "{{ lookup('file', 'images/list.yml') }}"
+    images: "{{ lookup('file', 'list.yml') }}"
 
 - name: load docker images
   command: docker load -i images/{{ item.split('/')[-1] | basename }}.tar

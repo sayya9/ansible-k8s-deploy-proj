@@ -12,6 +12,11 @@
     force: yes
   with_items: "{{ images }}"
 
+- name: create images directory
+  file:
+    path: images
+    state: directory
+
 - name: archive images
   docker_image:
     name: "{{ item.split(':')[0] }}"

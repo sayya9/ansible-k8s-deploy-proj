@@ -15,5 +15,15 @@
     - { role: pull_helm_pkgs, tags: pull_helm_pkgs }
 
   post_tasks:
+    - name: check if list.yml exists
+      stat: path=list.yml
+      register: list
+
+    - name: remove list.yml if it exists
+      file:
+        state: absent
+        path: list.yml
+      when: list.stat.exists == True
+
     - name: generate list.yml
-      local_action: copy content={{ images }} dest=images/list.yml
+      local_action: copy content={{ images }} dest=list.yml
